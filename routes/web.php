@@ -18,7 +18,7 @@ Route::post("/api/todo", [\App\Http\Controllers\TodoController::class, "create"]
 
 Route::get("/users/login", [\App\Http\Controllers\UserController::class, "login"]);
 Route::get("/users/current", [\App\Http\Controllers\UserController::class, "current"])
-    ->middleware(["auth"]);
+    ->middleware(["auth"]); // middleware, kalau blom login akan otomatis di arahkan ke /login
 // Route::get("/api/users/current", [\App\Http\Controllers\UserController::class, "current"])
 //     ->middleware(["auth:token"]);
 // Route::get("/simple-api/users/current", [\App\Http\Controllers\UserController::class, "current"])

@@ -19,14 +19,14 @@ class UserTest extends TestCase
 
         // auth:: attempt = melakukan login dengan credential
         $success = Auth::attempt([
-            "email" => "abil@localhost",
+            "email" => "fadilah@localhost",
             "password" => "rahasia"
         ], true);
         self::assertTrue($success);
 
         $user = Auth::user(); // mendapatkan informasi user yang sedang login
         self::assertNotNull($user); // pastikan tidak null
-        self::assertEquals("abil@localhost", $user->email); // equesl pastikan sama dengan data di user email
+        self::assertEquals("fadilah@localhost", $user->email); // equesl pastikan sama dengan data di user email
     }
 
     // tamu yang login
@@ -36,30 +36,32 @@ class UserTest extends TestCase
         self::assertNull($user);
     }
 
-    // public function testLogin()
-    // {
-    //     $this->seed([UserSeeder::class]);
+    // login
+    public function testLogin()
+    {
+        $this->seed([UserSeeder::class]);
 
-    //     $this->get("/users/login?email=eko@localhost&password=rahasia")
-    //         ->assertRedirect("/users/current");
+        $this->get("/users/login?email=fadilah@localhost&password=rahasia")
+            ->assertRedirect("/users/current");
 
-    //     $this->get("/users/login?email=salah&password=rahasia")
-    //         ->assertSeeText("Wrong credentials");
-    // }
+        $this->get("/users/login?email=salah&password=rahasia")
+            ->assertSeeText("Wrong credentials");
+    }
 
-    // public function testCurrent()
-    // {
-    //     $this->seed([UserSeeder::class]);
+    // current
+    public function testCurrent()
+    {
+        $this->seed([UserSeeder::class]);
 
-    //     $this->get("/users/current")
-    //         ->assertStatus(302)
-    //         ->assertRedirect("/login");
+        $this->get("/users/current")
+            ->assertStatus(302)
+            ->assertRedirect("/login");
 
-    //     $user = User::where("email", "eko@localhost")->firstOrFail();
-    //     $this->actingAs($user)
-    //         ->get("/users/current")
-    //         ->assertSeeText("Hello Eko Kurniawan");
-    // }
+        $user = User::where("email", "fadilah@localhost")->firstOrFail();
+        $this->actingAs($user)
+            ->get("/users/current")
+            ->assertSeeText("Hello Moh Fadilah");
+    }
 
     // public function testTokenGuard()
     // {
